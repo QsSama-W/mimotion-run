@@ -13,8 +13,8 @@
 ### 一、Fork 此仓库
 
 ### 二、设置账号密码
-# 20230224新增
-添加名为  **CONFIG**的变量: Settings-->Secrets-->New secret ,使用下面json模板配置多账户，支持邮箱,手机号
+# 20260614修改
+添加名为  **CONFIG**的变量: Settings-->Secrets and variables-->Actions-->New secret ,使用下面json模板配置多账户，支持邮箱,手机号
 ```
 {
   "TG_BOT_TOKEN": "telegram TG_BOT_TOKEN，如果没有，请留空",
@@ -47,9 +47,9 @@
   ]
 }
 ```
-> 添加名为  **PAT** 的变量: Settings-->Secrets-->New secret
+> 添加名为  **PAT** 的变量: Settings-->Secrets and variables-->Actions-->New secret
 
-| Secrets |  格式  |
+| Secrets and variables |  格式  |
 | -------- | ----- |
 | PAT |   此处**PAT**需要申请，值为github token，教程详见：https://www.jianshu.com/p/bb82b3ad1d11 ,需要repo和workflow权限,此项必填，避免git push的权限错误。 |
 
@@ -89,14 +89,13 @@
 
 ### 三、自定义启动时间
 
-编辑 **random_cron.sh**
-修改其中**if**语句的判断时间为UTC时间，即**北京时间-8**，如北京时间8点为UTC时间0点，需要运行的时间-8就是UTC时间
+编辑 **`.github/workflows/run.yml`** 中的 `cron` 表达式，修改运行时间为UTC时间，即**北京时间-8**，如北京时间8点为UTC时间0点，需要运行的时间-8就是UTC时间。
 
-
+格式为：`分 时 * * *`，如 `'3 0,2,5,7,9,11,12 * * *'` 表示在UTC 0点、2点、5点、7点、9点、11点、12点各运行一次（对应北京时间8点、10点、13点、15点、17点、19点、20点）。
 
 ## 注意事项
 
-1. 每天运行七次，由random_cron.sh控制，分钟为随机值
+1. 每天运行七次，cron表达式中的分钟值会在每次运行后由 `cron.yml` 自动随机修改
 
 2. 多账户的数量和密码请一定要对上 不然无法使用!!!
 
@@ -112,6 +111,3 @@
 
 8. 请注意，账号不是 [小米账号]，而是 [小米运动] 的账号。
 
-## 历史Star数 
-
-[![Stargazers over time](https://starchart.cc/xunichanghuan/mimotion-run.svg)](https://starchart.cc/xunichanghuan/mimotion-run)
